@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <title>Legendary Heroes</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #457386;
+      --accent-color: #ffd700;
+      --hover-color: #5a8ba1;
+      --text-primary: #2c3e50;
+      --text-secondary: #34495e;
+      --heading-color: #1a5f7a;
+      --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    body {
+      background: url('path/to/legendary-background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .right {
+      position: absolute;
+      margin: 2%;
+      border: 2px solid gold;
+      border-radius: 15px;
+      width: 277px;
+      height: 222px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-color), #2c4957);
+      box-shadow: var(--box-shadow);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      flex-direction: column;
+      cursor: pointer;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+    }
+
+    .right:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+      background: linear-gradient(135deg, var(--hover-color), #365c6d);
+    }
+
+    .right img {
+      max-width: 65%;
+      max-height: 70%;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    }
+
+    .right:hover img {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .pvp-god {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: 700;
+      text-shadow: var(--text-shadow);
+    }
+
+    .pvp-god p {
+      margin: 0;
+      font-size: 1.3em;
+      background: linear-gradient(45deg, #ffd700, #f1c40f);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+    }
+
+    .description-box {
+      position: absolute;
+      left: 2.1%;
+      top: 160px;
+      width: 96%;
+      min-height: 750px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(98, 158, 148, 0.8));
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      transform: translateX(-120%) scale(0.95);
+      opacity: 0;
+      margin-top: 1%;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 100;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    .description-box.active {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #e74c3c;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      font-weight: bold;
+      text-shadow: none;
+    }
+
+    .close-btn:hover {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .bbbbbbbbbbbbbbt {
+      max-width: 65%;
+      max-height: 70%;
+      border-radius: 50%;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      object-fit: cover;
+    }
+
+    .bbbbbbbbbbbbbbt:hover img {
+      transform: scale(1.1) rotate(5deg);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .bbbbbbbbbbbbbbt img {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 4px solid var(--accent-color);
+      margin-right: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .channel-link-channel-link-2 {
+      max-width: 65%;
+      max-height: 70%;
+      border-radius: 50%;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      object-fit: cover;
+    }
+
+    .channel-link-channel-link-2:hover img {
+      transform: scale(1.1) rotate(5deg);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .channel-link-channel-link-2 img {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 4px solid var(--accent-color);
+      margin-right: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .oppppppp {
+      max-width: 65%;
+      max-height: 70%;
+      border-radius: 50%;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      object-fit: cover;
+    }
+
+    .oppppppp:hover img {
+      transform: scale(1.1) rotate(5deg);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .oppppppp img {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 4px solid var(--accent-color);
+      margin-right: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .oppppppp111111 {
+      max-width: 65%;
+      max-height: 70%;
+      border-radius: 50%;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      object-fit: cover;
+    }
+
+    .oppppppp111111:hover img {
+      transform: scale(1.1) rotate(5deg);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .oppppppp111111 img {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 4px solid var(--accent-color);
+      margin-right: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .oppppppp22222222222 {
+      max-width: 65%;
+      max-height: 70%;
+      border-radius: 50%;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      object-fit: cover;
+    }
+
+    .oppppppp22222222222:hover img {
+      transform: scale(1.1) rotate(5deg);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .oppppppp22222222222 img {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 4px solid var(--accent-color);
+      margin-right: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .oppppppp333333333 {
+      max-width: 65%;
+      max-height: 70%;
+      border-radius: 50%;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      object-fit: cover;
+    }
+
+    .oppppppp333333333:hover img {
+      transform: scale(1.1) rotate(5deg);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .oppppppp333333333 img {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 4px solid var(--accent-color);
+      margin-right: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .oppppppp3333333334 {
+      max-width: 65%;
+      max-height: 70%;
+      border-radius: 50%;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      object-fit: cover;
+    }
+
+    .oppppppp3333333334:hover img {
+      transform: scale(1.1) rotate(5deg);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .oppppppp3333333334 img {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 4px solid var(--accent-color);
+      margin-right: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(30px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .right {
+      animation: fadeInScale 0.3s ease-out forwards, float 3s ease-in-out infinite;
+    }
+
+    .right:nth-child(2) {
+      animation-delay: 0.1s, 0.05s;
+    }
+
+    .right:nth-child(3) {
+      animation-delay: 0.2s, 0.1s;
+    }
+
+    .right:nth-child(4) {
+      animation-delay: 0.3s, 0.15s;
+    }
+
+    .right:nth-child(5) {
+      animation-delay: 0.4s, 0.2s;
+    }
+
+    .right:nth-child(6) {
+      animation-delay: 0.5s, 0.25s;
+    }
+
+    .right::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 150%;
+      height: 100%;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent);
+      transform: skewX(-25deg);
+      transition: 0.75s;
+    }
+
+    .right:hover::before {
+      left: 150%;
+    }
+
+    @media (max-width: 768px) {
+      .right {
+        width: 220px;
+        height: 180px;
+      }
+
+      .description-box {
+        width: 90%;
+        left: 5%;
+        min-height: 600px;
+      }
+    }
+
+    .description-content h4 {
+      color: var(--heading-color);
+      font-size: 2.2em;
+      font-weight: 700;
+      margin: 40px 0;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .description-content div {
+      color: var(--text-primary);
+      font-size: 1.1em;
+      line-height: 1.6;
+      letter-spacing: 0.3px;
+    }
+
+    .channel-link,
+    .channel-link-channel-link-1 {
+      text-decoration: none !important;
+      color: inherit;
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      margin-right: 10px;
+    }
+
+    .channel-link:hover,
+    .channel-link-channel-link-1:hover {
+      text-decoration: none !important;
+      color: var(--hover-color);
+    }
+
+    .oppppppp,
+    .channel-link-channel-link-2,
+    .bbbbbbbbbbbbbbt {
+      margin-right: 10px;
+    }
+
+    .oppppppp img,
+    .channel-link-channel-link-2 img,
+    .bbbbbbbbbbbbbbt img {
+      margin-right: 10px;
+    }
+
+    .best-of-best {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .best-item img {
+      border: 3px solid gold;
+    }
+  </style>
+</head>
+
+<body class="p-3 m-0 border-0 bd-example m-0 border-0">
+
+  <nav class="navbar bg-body-tertiary">
+    <div class="container">
+      <a class="center d-flex justify-content-center w-100" href="#">
+        <!-- <img class="bbtn" src="minecraft.svg" alt="" width="300" height="100"> -->
+      </a>
+      <div class="container-fluid">
+        <form class="d-flex" role="search" onsubmit="return handleSearch(event);">
+          <select class="form-select me-2" id="optionsSelect" onchange="filterRights()">
+            <option value="" disabled selected>Select an option</option>
+            <option value="all">All</option>
+            <option value="gamerfleet">Gamerfleet</option>
+            <option value="techno">Techno Gamerz</option>
+            <option value="dev">Dev</option>
+            <option value="jack">Jack_Bhaiya</option>
+            <option value="senpai">SenpaiSpider</option>
+            <option value="niz">Niz Gamer</option>
+          </select>
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+          <button style="width: 11%" class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  </div>
+  <nav>
+
+    <div class="right right1" onclick="openDescription(1)">
+      <!-- <img src="https://p.novaskin.me/5193433599.png" alt="Profile"> -->
+      <div class="pvp-god">
+        <!-- <p>Gamerfleet</p> -->
+      </div>
+    </div>
+
+    <div class="right right2" style="right: 65%;" onclick="openDescription(2)">
+      <!-- <img src="https://p.novaskin.me/4854745201.png" alt="Profile"> -->
+      <div class="pvp-god">
+        <!-- <p>Techno Gamerz</p> -->
+      </div>
+    </div>
+
+    <div class="right right3" style="right: 49.13%;" onclick="openDescription(3)">
+      <!-- <img src="https://p.novaskin.me/4751403189.png" alt="Profile"> -->
+      <div class="pvp-god">
+        <!-- <p>Dev</p> -->
+      </div>
+    </div>
+
+    <div class="right right4" style="right: 33.26%;" onclick="openDescription(4)">
+      <!-- <img src="https://p.novaskin.me/6026303035.png" alt="Profile"> -->
+      <div class="pvp-god">
+        <!-- <p>Jack_Bhaiya</p> -->
+      </div>
+    </div>
+
+    <div class="right right5" style="right: 17%;" onclick="openDescription(5)">
+      <!-- <img src="https://p.novaskin.me/6095503148.png" alt="Profile"> -->
+      <div class="pvp-god">
+        <!-- <p>SenpaiSpider</p> -->
+      </div>
+    </div>
+
+    <div class="right right6" style="right: 1%;" onclick="openDescription(6)">
+      <!-- <img src="https://p.novaskin.me/5838323212.png" alt="Profile"> -->
+      <div class="pvp-god">
+        <!-- <p>Niz Gamer</p> -->
+      </div>
+    </div>
+
+    <div class="right right7 col align-self-center" style="right: -15%;" onclick="openDescription(7)">
+      <img src="" alt="Profile">
+      <div class="pvp-god">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="right right8" style="right: -15%;" onclick="openDescription(8)">
+      <img src="" alt="Profile">
+      <div class="pvp-god">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="right right9" style="right: -15%;" onclick="openDescription(9)">
+      <img src="" alt="Profile">
+      <div class="pvp-god">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="right right10" style="right: -15%;" onclick="openDescription(10)">
+      <img src="" alt="Profile">
+      <div class="pvp-god">
+        <p></p>
+      </div>
+    </div>
+
+  </nav>
+
+
+  <div class="description-boxes">
+    <div id="descBox1" class="description-box description-box1">
+      <div class="close-btn" onclick="closeDescription(1)">&times;</div>
+      <div class="description-content">
+        <div>
+          <h4>
+            <!-- Channel : <a href="https://www.youtube.com/@AnshuBisht" target="_blank" class="channel-link">
+              <img class="oppppppp111111"
+                src="https://yt3.googleusercontent.com/ytc/AIdro_kyNcubY4RCgJDIstLb7bUa9xhBWliQLvq9qsIcffopVOg=s160-c-k-c0x00ffffff-no-rj"
+                alt="YouTube" height="100px" width="100px">
+              Anshu Bisht -->
+            </a>
+            <!-- <a href="https://www.youtube.com/@GamerFleet" target="_blank" class="channel-link">
+              <img class="oppppppp"
+                src="https://yt3.googleusercontent.com/ytc/AIdro_kkwirXUmFn-FsDj866jOXOZ2mrL4zT_Trzo_TM4g6zVukh=s160-c-k-c0x00ffffff-no-rj"
+                alt="YouTube" height="100px" width="100px">
+              GamerFleet -->
+            </a>
+            <!-- <a href="https://www.youtube.com/@NotGamerFleet/featured" target="_blank" class="channel-link">
+              <img class="oppppppp22222222222"
+                src="https://yt3.googleusercontent.com/5P_totcLB3Ntq0k-JyV1GN6wSZvqqbgrOJjmFEVNzFTjxhsfWo2yA-tx5cH_j_Q1apf4eZNR=s160-c-k-c0x00ffffff-no-rj"
+                alt="YouTube" height="100px" width="100px">
+              NotGamerFleet -->
+            </a>
+            <!-- <a href="https://www.youtube.com/@GamerFleetShortsOG" target="_blank" class="channel-link">
+              <img class="oppppppp333333333"
+                src="https://yt3.googleusercontent.com/HHSF2a6_hp-V0EVIjrwK6_UDXJJ74jg1ArOGHTCJ7a5Bp2_Eh23xJsRlQTECS3amBVa-sJxb=s160-c-k-c0x00ffffff-no-rj"
+                alt="YouTube" height="100px" width="100px">
+              GamerFleet Shorts -->
+            </a>
+          </h4>
+        </div>
+        <!-- <h4>PVP GOD</h4> -->
+        <div style="color: #260053c6; font-weight: 600;">
+          <!-- Anshu Bisht, popularly known as GamerFleet in the world of YouTubers and streamers, is an Indian YouTuber
+          famous
+          for his video game livestreams, lifestyle-related vlogs, and travel vlogs. He started creating content on
+          YouTube
+          in 2017 and struggled a lot in his initial days. -->
+        </div>
+      </div>
+    </div>
+
+    <div id="descBox2" class="description-box description-box2">
+      <div class="close-btn" onclick="closeDescription(2)">&times;</div>
+      <div class="description-content">
+        <h4>
+          <!-- Channel : <a href="https://www.youtube.com/channel/UCX8pnu3DYUnx8qy8V_c6oHg" target="_blank"
+            class="channel-link">
+            <img class="oppppppp111111"
+              src="https://yt3.googleusercontent.com/ytc/AIdro_khOjwSRqROS5aBrSaKWBJuai_mU-sQt_75i5qaFylGJ3g=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            Techno Gamerz -->
+          </a>
+          <!-- <a href="https://www.youtube.com/@UjjwalGamer" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/ytc/AIdro_nmeNsubjl7Fl7Eje6G1dWkTtN8xaf1Ji1Z01xdC5NnANI=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px"> -->
+          <!-- Ujjwal -->
+          </a>
+          <!-- <a href="https://www.youtube.com/@UjjwalShortsOfficial" target="_blank" class="channel-link">
+            <img class="oppppppp22222222222"
+              src="https://yt3.googleusercontent.com/VABR9KwqX0TwSpBhqtEMtz_siJxmLrQ1083_DsWs4bqIyVNvUXgn9D9i0n94fN-jpgt7GoBuaN0=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px"> -->
+          <!-- Ujjwal Shorts -->
+          </a>
+          <!-- <a href="https://www.youtube.com/@TechnoStudios" target="_blank" class="channel-link">
+            <img class="oppppppp22222222222"
+              src="https://yt3.googleusercontent.com/WnqZoFIdb4aYR8K8umqFmpwCd9OTvLbZGeEnhuQ3-acHtt9_9UPTkxb4Cn1zUu7Dc0TRXEk0=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px"> -->
+          <!-- Techno -->
+          </a>
+        </h4>
+        <!-- <h4>Popular Gaming Tutorials</h4> -->
+        <div style="color: #260053c6; font-weight: 600;">
+          <!-- Ujjwal Chaurasia (born: January 12, 2002 (2002-01-12) [age 22]), better known online as Techno Gamerz, is one
+          of
+          India's biggest gaming YouTubers. He is most known for his GTA V series. -->
+        </div>
+      </div>
+    </div>
+
+    <div id="descBox3" class="description-box description-box3">
+      <div class="close-btn" onclick="closeDescription(3)">&times;</div>
+      <div class="description-content">
+        <h4>
+          <!-- Channel : <a href="https://www.youtube.com/channel/UCXJCdsQ15SYCMrG8ZSFwnEA" target="_blank"
+            class="channel-link">
+            <img class="bbbbbbbbbbbbbbt"
+              src="https://yt3.googleusercontent.com/ytc/AIdro_mIuYa1mkWfG3-JVuAjyTrZ8slZXANhBW3fMQjRqUGl2Fk=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            DevXD
+          </a>
+
+
+          <!-- <a href="https://www.youtube.com/@pankajdevxd" target="_blank" class="channel-link-channel-link-1">
+            <img class="channel-link-channel-link-2"
+              src="https://yt3.googleusercontent.com/RvFFlZz52LvucPKl1nzkVgf1q4LsrBW05-3lLObHtlXe9s7B_DZK4n_Uf1ayPuxIwCdBmRb8=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px"> -->
+          <!-- Pankaj Dev -->
+          </a>
+
+        </h4>
+        <!-- <div style="color: #260053c6; font-weight: 600;"> -->
+        <!-- Hi, I'm DevXD aka Pankaj Dev, your fellow Minecraft content creator from Uttrakhand.For more business
+          enquiries- -->
+      </div>
+    </div>
+  </div>
+
+  <div id="descBox4" class="description-box description-box4">
+    <div class="close-btn" onclick="closeDescription(4)">&times;</div>
+    <div class="description-content">
+      <!-- <h1 style="color: #260053c6; font-weight: 600" ;> -->
+      <!-- Nothing... -->
+      </h1>
+    </div>
+  </div>
+
+  <div id="descBox5" class="description-box description-box5">
+    <div class="close-btn" onclick="closeDescription(5)">&times;</div>
+    <div class="description-content">
+      <h4>
+        <!-- Channel : <a href="https://www.youtube.com/@SenpaiSpider" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/7-JXzXEzN1OoTsCTGN_tkgj2qnMnEs3Kch5zfdA1LO8hZkTrmCHFOU-V-ibYpAZcVVweUlKP=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            SenpaiSpider -->
+        </a>
+      </h4>
+      <h4>
+        <!-- BEST PVP -->
+      </h4>
+      <!-- <div style="color: #260053c6; font-weight: 600;">
+          Senpaispider is a Twitch streamer known for their content creation on the Twitch platform. They may have a
+          specific niche or style of content that they are known for, but without more context, it's difficult to
+          provide specific details about them. -->
+    </div>
+  </div>
+  </div>
+
+  <div id="descBox6" class="description-box description-box6">
+    <div class="close-btn" onclick="closeDescription(6)">&times;</div>
+    <div class="description-content">
+      <h4>
+        <!-- Channel : <a href="https://www.youtube.com/@NizGamer" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/IhW4wM9nLRSs9br1uUxcO8Ff35OCyUXypsmp8w7RIkjpeiV-awkry4yN7XcMib6c9SDQQz4tjw=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            Niz Gamer -->
+        </a>
+        <!-- <a href="https://www.youtube.com/@NizUnfiltered" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/fjQbflmYDzqXlVEjhtN5m5xay_FKx0hvzJkG-pxi-XoUKxAcNmH64fSvGQu3IhJeiEJjpALdxI0=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px"> -->
+        <!-- Niz Unfiltered -->
+        </a>
+      </h4>
+      <!-- Epic Minecraft Adventures -->
+      <h4>
+      </h4>
+      <div style="color: #260053c6; font-weight: 600;">
+        <!-- Niz Gamer, whose real name is Niraj, is an Indian gaming YouTuber who is best known for his Minecraft SMP
+          videos. He has over 482,000 subscribers on his YouTube channel and his videos have been viewed over 50 million
+          times. Niz Gamer was born in India. -->
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    function openDescription(boxNumber) {
+      document.querySelectorAll('.description-box').forEach(box => {
+        box.classList.remove('active');
+      });
+
+      const targetBox = document.getElementById(`descBox${boxNumber}`);
+      if (targetBox) {
+        targetBox.classList.add('active');
+        console.log(`Opening box ${boxNumber}`);
+      }
+    }
+
+    function closeDescription(boxNumber) {
+      const targetBox = document.getElementById(`descBox${boxNumber}`);
+      if (targetBox) {
+        targetBox.classList.remove('active');
+      }
+    }
+
+    document.addEventListener('click', function (event) {
+      if (event.target.classList.contains('description-box')) {
+        event.target.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log('DOM loaded, initializing...');
+
+      document.querySelectorAll('.right').forEach((el, index) => {
+        console.log(`Right container ${index + 1} found`);
+      });
+
+      document.querySelectorAll('.description-box').forEach((el, index) => {
+        console.log(`Description box ${index + 1} found`);
+      });
+    });
+
+    function handleSearch(event) {
+      event.preventDefault(); // Prevent the default form submission
+      const query = document.getElementById('searchInput').value.toLowerCase(); // Get the search input
+      const rightElements = document.querySelectorAll('.right'); // Select all right elements
+      const searchResults = document.getElementById('searchResults'); // Get the search results container
+      searchResults.innerHTML = ''; // Clear previous results
+      let hasResults = false; // Flag to check if there are results
+
+      rightElements.forEach(el => {
+        const name = el.querySelector('.pvp-god p').textContent.toLowerCase(); // Get the name text
+        if (name.includes(query)) {
+          const clone = el.cloneNode(true); // Clone the matching element
+          searchResults.appendChild(clone); // Add it to the search results
+          hasResults = true; // Set flag to true if there's a match
+        }
+      });
+
+      searchResults.style.display = hasResults ? 'flex' : 'none'; // Show or hide results
+      console.log(`Searching for: ${query}`);
+      return false; // Prevent form submission
+    }
+
+    function filterRights() {
+      const selectedValue = document.getElementById('optionsSelect').value; // Get the selected value
+      const rightElements = document.querySelectorAll('.right'); // Select all right elements
+
+      rightElements.forEach(el => {
+        if (selectedValue === 'all' || el.getAttribute('data-name') === selectedValue) {
+          el.style.display = 'flex'; // Show matching elements
+        } else {
+          el.style.display = 'none'; // Hide non-matching elements
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
