@@ -26,6 +26,7 @@
       color: #fff;
     }
 
+
     .navbar {
       background-color: rgba(0, 0, 0, 0.7);
     }
@@ -396,6 +397,10 @@
       }
     }
 
+    .btn-btn-outline-success {
+      left: 100%;
+    }
+
     .description-content h4 {
       color: var(--heading-color);
       font-size: 2.2em;
@@ -451,105 +456,189 @@
     .best-item img {
       border: 3px solid gold;
     }
+
+    #searchResults {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      z-index: 100;
+      background-color: #8b0505a1;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 600px;
+      max-height: 200px;
+      overflow-y: auto;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .search-result {
+      padding: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, border 0.3s;
+      border: 1px solid transparent;
+    }
+
+    .search-result:hover {
+      background-color: #007e58ce;
+      border: 1px solid #ccc;
+    }
+
+    .highlight {
+      background-color: transparent;
+      font-weight: normal;
+    }
+
+    @media (max-width: 768px) {
+      #searchResults {
+        width: 90%;
+      }
+    }
+
+    #searchResults {
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+
+    #searchResults::-webkit-scrollbar {
+      display: none;
+    }
   </style>
 </head>
 
-<body class="p-3 m-0 border-0 bd-example m-0 border-0">
-
-  <nav class="navbar bg-body-tertiary">
-    <div class="container">
-      <a class="center d-flex justify-content-center w-100" href="#">
-        <!-- <img class="bbtn" src="minecraft.svg" alt="" width="300" height="100"> -->
-      </a>
-      <div class="container-fluid">
-        <form class="d-flex" role="search" onsubmit="return handleSearch(event);">
-          <select class="form-select me-2" id="optionsSelect" onchange="filterRights()">
-            <option value="" disabled selected>Select an option</option>
-            <option value="all">All</option>
-            <option value="gamerfleet">Gamerfleet</option>
-            <option value="techno">Techno Gamerz</option>
-            <option value="dev">Dev</option>
-            <option value="jack">Jack_Bhaiya</option>
-            <option value="senpai">SenpaiSpider</option>
-            <option value="niz">Niz Gamer</option>
-          </select>
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
-          <button style="width: 11%" class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+<body>
+  <nav class="m-0 border-0 bd-example" style="background-color: rgb(216, 236, 255); position: relative;">
+    <img src="minecraft.svg" alt="" width="300" height="100" style="margin-left: 20px; margin-right: 20px;">
+    <div class="text-center" style="display: flex; justify-content: center; align-items: center; position: relative;">
+      <form class="d-flex" role="search" onsubmit="return handleSearch(event);" style="margin-right: 20px;">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput"
+          style="width: 600px;" oninput="debounceSearch()" aria-autocomplete="list" aria-controls="searchResults"
+          aria-activedescendant="searchResult-0">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-danger" type="button" onclick="clearSearch()"
+          style="margin-left: 10px;">Clear</button>
+      </form>
+      <div id="searchResults" role="listbox" aria-labelledby="searchInput"
+        style="position: absolute; right: -1.5pc; bottom: -100%; width: 500px; z-index: 100; overflow-y: auto; scrollbar-width: none;">
+        Search results will be populated here
       </div>
     </div>
   </nav>
 
+  <div id="searchResults" role="listbox" aria-labelledby="searchInput"></div>
+
   </div>
   <nav>
 
-    <div class="right right1" onclick="openDescription(1)">
-      <!-- <img src="https://p.novaskin.me/5193433599.png" alt="Profile"> -->
+    <div class="right right1" style="position: fixed;" onclick="openDescription(1)">
+      <img src="https://p.novaskin.me/5193433599.png" alt="Profile">
       <div class="pvp-god">
-        <!-- <p>Gamerfleet</p> -->
+        <p>Gamerfleet</p>
       </div>
     </div>
 
     <div class="right right2" style="right: 65%;" onclick="openDescription(2)">
-      <!-- <img src="https://p.novaskin.me/4854745201.png" alt="Profile"> -->
+      <img src="https://p.novaskin.me/4854745201.png" alt="Profile">
       <div class="pvp-god">
-        <!-- <p>Techno Gamerz</p> -->
+        <p>Techno Gamerz</p>
       </div>
     </div>
 
     <div class="right right3" style="right: 49.13%;" onclick="openDescription(3)">
-      <!-- <img src="https://p.novaskin.me/4751403189.png" alt="Profile"> -->
+      <img src="https://p.novaskin.me/4751403189.png" alt="Profile">
       <div class="pvp-god">
-        <!-- <p>Dev</p> -->
+        <p>Dev</p>
       </div>
     </div>
 
     <div class="right right4" style="right: 33.26%;" onclick="openDescription(4)">
-      <!-- <img src="https://p.novaskin.me/6026303035.png" alt="Profile"> -->
+      <img src="https://p.novaskin.me/6026303035.png" alt="Profile">
       <div class="pvp-god">
-        <!-- <p>Jack_Bhaiya</p> -->
+        <p>Jack_Bhaiya</p>
       </div>
     </div>
 
     <div class="right right5" style="right: 17%;" onclick="openDescription(5)">
-      <!-- <img src="https://p.novaskin.me/6095503148.png" alt="Profile"> -->
+      <img src="https://p.novaskin.me/6095503148.png" alt="Profile">
       <div class="pvp-god">
-        <!-- <p>SenpaiSpider</p> -->
+        <p>SenpaiSpider</p>
       </div>
     </div>
 
     <div class="right right6" style="right: 1%;" onclick="openDescription(6)">
-      <!-- <img src="https://p.novaskin.me/5838323212.png" alt="Profile"> -->
+      <img src="https://p.novaskin.me/5838323212.png" alt="Profile">
       <div class="pvp-god">
-        <!-- <p>Niz Gamer</p> -->
+        <p>Niz Gamer</p>
       </div>
     </div>
 
-    <div class="right right7 col align-self-center" style="right: -15%;" onclick="openDescription(7)">
-      <img src="" alt="Profile">
+    <div class="right right7" style="top: 22.5vw;" onclick="openDescription(7)">
+      <img src="https://p.novaskin.me/6268983163.png" alt="Profile">
       <div class="pvp-god">
-        <p></p>
+        <p>Bulky Star</p>
       </div>
     </div>
 
-    <div class="right right8" style="right: -15%;" onclick="openDescription(8)">
-      <img src="" alt="Profile">
+    <div class="right right8" style="top: 22.5vw; right: 1%;" onclick="openDescription(8)">
+      <img src="https://p.novaskin.me/6299493242.png" alt="Profile">
       <div class="pvp-god">
-        <p></p>
+        <p>Yug Plays</p>
       </div>
     </div>
 
-    <div class="right right9" style="right: -15%;" onclick="openDescription(9)">
-      <img src="" alt="Profile">
+    <div class="right right9" style="top: 22.5vw; right: 65%;" onclick="openDescription(9)">
+      <img src="https://p.novaskin.me/4210513565.png" alt="Profile">
       <div class="pvp-god">
-        <p></p>
+        <p>MrBeast</p>
       </div>
     </div>
 
-    <div class="right right10" style="right: -15%;" onclick="openDescription(10)">
-      <img src="" alt="Profile">
+    <div class="right right10" style="top: 22.5vw; right: 49.1%;" onclick="openDescription(10)">
+      <img src="https://p.novaskin.me/5101373828.png" alt="Profile">
       <div class="pvp-god">
-        <p></p>
+        <p>Bixu</p>
+      </div>
+    </div>
+
+    <div class="right right11" style="top: 22.5vw; right: 33.18%;" onclick="openDescription(11)">
+      <img src="https://p.novaskin.me/5300893282.png" alt="Profile">
+      <div class="pvp-god">
+        <p>YesSmartyPie</p>
+      </div>
+    </div>
+
+    <div class="right right12" style="top: 22.5vw; right: 17%;" onclick="openDescription(12)">
+      <img src="https://p.novaskin.me/6061214309.png" alt="Profile">
+      <div class="pvp-god">
+        <p>Mr. Lapis</p>
+      </div>
+    </div>
+
+    <div class="right right13" style="top: 35.3vw; right: 17%;" onclick="openDescription(13)">
+      <img src="https://p.novaskin.me/6282573153.png" alt="Profile">
+      <div class="pvp-god">
+        <p>PSD1</p>
+      </div>
+    </div>
+
+    <div class="right right14" style="top: 35.3vw; right: 33.18%;" onclick="openDescription(14)">
+      <img src="https://p.novaskin.me/5373473069.png" alt="Profile">
+      <div class="pvp-god">
+        <p>I AM KOPI</p>
+      </div>
+    </div>
+
+    <div class="right right15" style="top: 35.3vw;" onclick="openDescription(15)">
+      <img src="https://p.novaskin.me/6299433529.png" alt="Profile">
+      <div class="pvp-god">
+        <p>Ausan Gaming</p>
+      </div>
+    </div>
+
+    <div class="right right16" style="top: 35.3vw; right: 65%;" onclick="openDescription(16)">
+      <img src="https://p.novaskin.me/5513793573.png" alt="Profile">
+      <div class="pvp-god">
+        <p>Andreobee</p>
       </div>
     </div>
 
@@ -562,39 +651,39 @@
       <div class="description-content">
         <div>
           <h4>
-            <!-- Channel : <a href="https://www.youtube.com/@AnshuBisht" target="_blank" class="channel-link">
+            Channel : <a href="https://www.youtube.com/@AnshuBisht" target="_blank" class="channel-link">
               <img class="oppppppp111111"
                 src="https://yt3.googleusercontent.com/ytc/AIdro_kyNcubY4RCgJDIstLb7bUa9xhBWliQLvq9qsIcffopVOg=s160-c-k-c0x00ffffff-no-rj"
                 alt="YouTube" height="100px" width="100px">
-              Anshu Bisht -->
+              Anshu Bisht
             </a>
-            <!-- <a href="https://www.youtube.com/@GamerFleet" target="_blank" class="channel-link">
+            <a href="https://www.youtube.com/@GamerFleet" target="_blank" class="channel-link">
               <img class="oppppppp"
                 src="https://yt3.googleusercontent.com/ytc/AIdro_kkwirXUmFn-FsDj866jOXOZ2mrL4zT_Trzo_TM4g6zVukh=s160-c-k-c0x00ffffff-no-rj"
                 alt="YouTube" height="100px" width="100px">
-              GamerFleet -->
+              GamerFleet
             </a>
-            <!-- <a href="https://www.youtube.com/@NotGamerFleet/featured" target="_blank" class="channel-link">
+            <a href="https://www.youtube.com/@NotGamerFleet/featured" target="_blank" class="channel-link">
               <img class="oppppppp22222222222"
                 src="https://yt3.googleusercontent.com/5P_totcLB3Ntq0k-JyV1GN6wSZvqqbgrOJjmFEVNzFTjxhsfWo2yA-tx5cH_j_Q1apf4eZNR=s160-c-k-c0x00ffffff-no-rj"
                 alt="YouTube" height="100px" width="100px">
-              NotGamerFleet -->
+              NotGamerFleet
             </a>
-            <!-- <a href="https://www.youtube.com/@GamerFleetShortsOG" target="_blank" class="channel-link">
+            <a href="https://www.youtube.com/@GamerFleetShortsOG" target="_blank" class="channel-link">
               <img class="oppppppp333333333"
                 src="https://yt3.googleusercontent.com/HHSF2a6_hp-V0EVIjrwK6_UDXJJ74jg1ArOGHTCJ7a5Bp2_Eh23xJsRlQTECS3amBVa-sJxb=s160-c-k-c0x00ffffff-no-rj"
                 alt="YouTube" height="100px" width="100px">
-              GamerFleet Shorts -->
+              GamerFleet Shorts
             </a>
           </h4>
         </div>
-        <!-- <h4>PVP GOD</h4> -->
+        <h4>PVP GOD</h4>
         <div style="color: #260053c6; font-weight: 600;">
-          <!-- Anshu Bisht, popularly known as GamerFleet in the world of YouTubers and streamers, is an Indian YouTuber
+          Anshu Bisht, popularly known as GamerFleet in the world of YouTubers and streamers, is an Indian YouTuber
           famous
           for his video game livestreams, lifestyle-related vlogs, and travel vlogs. He started creating content on
           YouTube
-          in 2017 and struggled a lot in his initial days. -->
+          in 2017 and struggled a lot in his initial days.
         </div>
       </div>
     </div>
@@ -603,37 +692,38 @@
       <div class="close-btn" onclick="closeDescription(2)">&times;</div>
       <div class="description-content">
         <h4>
-          <!-- Channel : <a href="https://www.youtube.com/channel/UCX8pnu3DYUnx8qy8V_c6oHg" target="_blank"
+          Channel : <a href="https://www.youtube.com/channel/UCX8pnu3DYUnx8qy8V_c6oHg" target="_blank"
             class="channel-link">
             <img class="oppppppp111111"
               src="https://yt3.googleusercontent.com/ytc/AIdro_khOjwSRqROS5aBrSaKWBJuai_mU-sQt_75i5qaFylGJ3g=s160-c-k-c0x00ffffff-no-rj"
               alt="YouTube" height="100px" width="100px">
-            Techno Gamerz -->
+            Techno Gamerz
           </a>
-          <!-- <a href="https://www.youtube.com/@UjjwalGamer" target="_blank" class="channel-link">
+          <a href="https://www.youtube.com/@UjjwalGamer" target="_blank" class="channel-link">
             <img class="oppppppp"
               src="https://yt3.googleusercontent.com/ytc/AIdro_nmeNsubjl7Fl7Eje6G1dWkTtN8xaf1Ji1Z01xdC5NnANI=s160-c-k-c0x00ffffff-no-rj"
-              alt="YouTube" height="100px" width="100px"> -->
-          <!-- Ujjwal -->
+              alt="YouTube" height="100px" width="100px">
+            Ujjwal
           </a>
-          <!-- <a href="https://www.youtube.com/@UjjwalShortsOfficial" target="_blank" class="channel-link">
+          <a href="https://www.youtube.com/@UjjwalShortsOfficial" target="_blank" class="channel-link">
             <img class="oppppppp22222222222"
               src="https://yt3.googleusercontent.com/VABR9KwqX0TwSpBhqtEMtz_siJxmLrQ1083_DsWs4bqIyVNvUXgn9D9i0n94fN-jpgt7GoBuaN0=s160-c-k-c0x00ffffff-no-rj"
-              alt="YouTube" height="100px" width="100px"> -->
-          <!-- Ujjwal Shorts -->
+              alt="YouTube" height="100px" width="100px">
+            Ujjwal Shorts
           </a>
-          <!-- <a href="https://www.youtube.com/@TechnoStudios" target="_blank" class="channel-link">
+          <a href="https://www.youtube.com/@TechnoStudios" target="_blank" class="channel-link">
             <img class="oppppppp22222222222"
               src="https://yt3.googleusercontent.com/WnqZoFIdb4aYR8K8umqFmpwCd9OTvLbZGeEnhuQ3-acHtt9_9UPTkxb4Cn1zUu7Dc0TRXEk0=s160-c-k-c0x00ffffff-no-rj"
-              alt="YouTube" height="100px" width="100px"> -->
-          <!-- Techno -->
+              alt="YouTube" height="100px" width="100px">
+            Techno
           </a>
         </h4>
-        <!-- <h4>Popular Gaming Tutorials</h4> -->
+        <h4>Popular Gaming Tutorials</h4>
         <div style="color: #260053c6; font-weight: 600;">
-          <!-- Ujjwal Chaurasia (born: January 12, 2002 (2002-01-12) [age 22]), better known online as Techno Gamerz, is one
+          Ujjwal Chaurasia (born: January 12, 2002 (2002-01-12) [age 22]), better known online as Techno Gamerz, is
+          one
           of
-          India's biggest gaming YouTubers. He is most known for his GTA V series. -->
+          India's biggest gaming YouTubers. He is most known for his GTA V series.
         </div>
       </div>
     </div>
@@ -642,7 +732,7 @@
       <div class="close-btn" onclick="closeDescription(3)">&times;</div>
       <div class="description-content">
         <h4>
-          <!-- Channel : <a href="https://www.youtube.com/channel/UCXJCdsQ15SYCMrG8ZSFwnEA" target="_blank"
+          Channel : <a href="https://www.youtube.com/channel/UCXJCdsQ15SYCMrG8ZSFwnEA" target="_blank"
             class="channel-link">
             <img class="bbbbbbbbbbbbbbt"
               src="https://yt3.googleusercontent.com/ytc/AIdro_mIuYa1mkWfG3-JVuAjyTrZ8slZXANhBW3fMQjRqUGl2Fk=s160-c-k-c0x00ffffff-no-rj"
@@ -651,79 +741,384 @@
           </a>
 
 
-          <!-- <a href="https://www.youtube.com/@pankajdevxd" target="_blank" class="channel-link-channel-link-1">
+          <a href="https://www.youtube.com/@pankajdevxd" target="_blank" class="channel-link-channel-link-1">
             <img class="channel-link-channel-link-2"
               src="https://yt3.googleusercontent.com/RvFFlZz52LvucPKl1nzkVgf1q4LsrBW05-3lLObHtlXe9s7B_DZK4n_Uf1ayPuxIwCdBmRb8=s160-c-k-c0x00ffffff-no-rj"
-              alt="YouTube" height="100px" width="100px"> -->
-          <!-- Pankaj Dev -->
+              alt="YouTube" height="100px" width="100px">
+            Pankaj Dev
           </a>
 
         </h4>
-        <!-- <div style="color: #260053c6; font-weight: 600;"> -->
-        <!-- Hi, I'm DevXD aka Pankaj Dev, your fellow Minecraft content creator from Uttrakhand.For more business
-          enquiries- -->
+        <div style="color: #260053c6; font-weight: 600;">
+          Hi, I'm DevXD aka Pankaj Dev, your fellow Minecraft content creator from Uttrakhand.For more business
+          enquiries-
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="descBox4" class="description-box description-box4">
-    <div class="close-btn" onclick="closeDescription(4)">&times;</div>
-    <div class="description-content">
-      <!-- <h1 style="color: #260053c6; font-weight: 600" ;> -->
-      <!-- Nothing... -->
-      </h1>
+    <div id="descBox4" class="description-box description-box4">
+      <div class="close-btn" onclick="closeDescription(4)">&times;</div>
+      <div class="description-content">
+        <h1 style="color: #260053c6; font-weight: 600" ;>
+          Nothing...
+        </h1>
+      </div>
     </div>
-  </div>
 
-  <div id="descBox5" class="description-box description-box5">
-    <div class="close-btn" onclick="closeDescription(5)">&times;</div>
-    <div class="description-content">
-      <h4>
-        <!-- Channel : <a href="https://www.youtube.com/@SenpaiSpider" target="_blank" class="channel-link">
+    <div id="descBox5" class="description-box description-box5">
+      <div class="close-btn" onclick="closeDescription(5)">&times;</div>
+      <div class="description-content">
+        <h4>
+          Channel : <a href="https://www.youtube.com/@SenpaiSpider" target="_blank" class="channel-link">
             <img class="oppppppp"
               src="https://yt3.googleusercontent.com/7-JXzXEzN1OoTsCTGN_tkgj2qnMnEs3Kch5zfdA1LO8hZkTrmCHFOU-V-ibYpAZcVVweUlKP=s160-c-k-c0x00ffffff-no-rj"
               alt="YouTube" height="100px" width="100px">
-            SenpaiSpider -->
-        </a>
-      </h4>
-      <h4>
-        <!-- BEST PVP -->
-      </h4>
-      <!-- <div style="color: #260053c6; font-weight: 600;">
+            SenpaiSpider
+          </a>
+        </h4>
+        <h4>
+          BEST PVP
+        </h4>
+        <div style="color: #260053c6; font-weight: 600;">
           Senpaispider is a Twitch streamer known for their content creation on the Twitch platform. They may have a
           specific niche or style of content that they are known for, but without more context, it's difficult to
-          provide specific details about them. -->
+          provide specific details about them.
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
 
-  <div id="descBox6" class="description-box description-box6">
-    <div class="close-btn" onclick="closeDescription(6)">&times;</div>
-    <div class="description-content">
-      <h4>
-        <!-- Channel : <a href="https://www.youtube.com/@NizGamer" target="_blank" class="channel-link">
+    <div id="descBox6" class="description-box description-box6">
+      <div class="close-btn" onclick="closeDescription(6)">&times;</div>
+      <div class="description-content">
+        <h4>
+          Channel : <a href="https://www.youtube.com/@NizGamer" target="_blank" class="channel-link">
             <img class="oppppppp"
               src="https://yt3.googleusercontent.com/IhW4wM9nLRSs9br1uUxcO8Ff35OCyUXypsmp8w7RIkjpeiV-awkry4yN7XcMib6c9SDQQz4tjw=s160-c-k-c0x00ffffff-no-rj"
               alt="YouTube" height="100px" width="100px">
-            Niz Gamer -->
-        </a>
-        <!-- <a href="https://www.youtube.com/@NizUnfiltered" target="_blank" class="channel-link">
+            Niz Gamer
+          </a>
+          <a href="https://www.youtube.com/@NizUnfiltered" target="_blank" class="channel-link">
             <img class="oppppppp"
               src="https://yt3.googleusercontent.com/fjQbflmYDzqXlVEjhtN5m5xay_FKx0hvzJkG-pxi-XoUKxAcNmH64fSvGQu3IhJeiEJjpALdxI0=s160-c-k-c0x00ffffff-no-rj"
-              alt="YouTube" height="100px" width="100px"> -->
-        <!-- Niz Unfiltered -->
-        </a>
-      </h4>
-      <!-- Epic Minecraft Adventures -->
-      <h4>
-      </h4>
-      <div style="color: #260053c6; font-weight: 600;">
-        <!-- Niz Gamer, whose real name is Niraj, is an Indian gaming YouTuber who is best known for his Minecraft SMP
-          videos. He has over 482,000 subscribers on his YouTube channel and his videos have been viewed over 50 million
-          times. Niz Gamer was born in India. -->
+              alt="YouTube" height="100px" width="100px">
+            Niz Unfiltered
+          </a>
+        </h4>
+        Epic Minecraft Adventures
+        <h4>
+        </h4>
+        <div style="color: #260053c6; font-weight: 600;">
+          Niz Gamer, whose real name is Niraj, is an Indian gaming YouTuber who is best known for his Minecraft SMP
+          videos. He has over 482,000 subscribers on his YouTube channel and his videos have been viewed over 50
+          million
+          times. Niz Gamer was born in India.
+        </div>
       </div>
     </div>
-  </div>
+
+    <div id="descBox7" class="description-box description-box7">
+      <div class="close-btn" onclick="closeDescription(7)">&times;</div>
+      <div class="description-content">
+        <h4>
+          Channel : <a href="https://www.youtube.com/channel/UC8ZzyNuoZDFeXGDJsB0o-8A" target="_blank"
+            class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/onjfczfUydxUep2_XV3Dw663ZVIELx8w0thnodqtWufxHQ04pQffrcelRjVpjmnQSiCQPSDMAss=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            Bulky Star
+          </a>
+          <a href="https://www.youtube.com/@Bulky_" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/ct6w3GZA5ws9kmigCLxaUM2Y4B27vCKfu598Udb22FuO_kVH-PnJpgXMsMWko2o7fODy73D6hTA=s176-c-k-c0x00ffffff-no-rj-mo"
+              alt="YouTube" height="100px" width="100px">
+            Bulky
+          </a>
+          <a href="https://www.youtube.com/@BulkyXD_" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/SQ5XYB79VIMG5aFPSfejcuLYIv7chMmv2KKs-ZNTKenSqF8qJ51pfQ9TgUAtlHFBNhFowSubhUM=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            BulkyXD
+          </a>
+          <a href="https://www.youtube.com/@ItsTechStar" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/J_UBb3wRgBGMWcEBXndtmlEwidKzU9DbPVmvP-mhn8WQqavaKv-9uPyHgJ0_Ty5ZYOqAUIqGsg=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            TechStar
+          </a>
+
+        </h4>
+        <h4>That Make World Records In Minecraft </h4>
+        <div style="color: #260053c6; font-weight: 600;">
+          Here are some details about the Bulky Star YouTube channel:
+          Subscribers: 1 million subscribers
+          Video views: 128.59 million video views
+          Engagement rate: 5.13%
+          Video upload frequency: 1 video per week
+          Average video length: 22.96 minutes
+          Estimated monthly earnings: $4.3K–$12.8K
+          The Bulky Star YouTube channel is run by Abhay Kumar, who also has an Instagram account with the same handle.
+          The channel features videos of Bulky Star making world records in Minecraft
+        </div>
+      </div>
+    </div>
+
+    <div id="descBox8" class="description-box description-box8">
+      <div class="close-btn" onclick="closeDescription(8)">&times;</div>
+      <div class="description-content">
+        <h4>
+          Channel : <a href="https://www.youtube.com/@YugPlayz" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/6XyH_jCPpfHhkxllQDfQzZuQcNOsPfKUiLzN5BiqXiHzlVaqlSBUcuKWpXww5b6aMqVpGMKq=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            Yug Plays
+          </a>
+          <a href="https://www.youtube.com/@yug2.063" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/OJc9ANW0skzddSq-zNyMTpQvz1STH0vdYDd1WjxxEueCbdwjqqeSvDxkoElzAr-ZFkXNfquczw=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            Yug 2.0
+          </a>
+        </h4>
+        <h4></h4>
+        <div style="color: #260053c6; font-weight: 600;">
+          Hey Guys Yug Here !! So, I opened this channel for all Gaming related content like - gaming, live streaming,
+          gameplay
+          How to, Tips And Tricks .......So if you are interested in all this kinds of stuff so may check my Channel and
+          Subs it Too.....
+          ~~~COME AND JOIN OUR GAMING ARMY~~~
+          Name - Yug Thakkar
+        </div>
+      </div>
+    </div>
+
+    <div id="descBox9" class="description-box description-box9">
+      <div class="close-btn" onclick="closeDescription(9)">&times;</div>
+      <div class="description-content">
+        <h4>
+          Channel : <a href="https://www.youtube.com/channel/UCX6OQ3DkcsbYNE6H8uQQuVA" target="_blank"
+            class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/fxGKYucJAVme-Yz4fsdCroCFCrANWqw0ql4GYuvx8Uq4l_euNJHgE-w9MTkLQA805vWCi-kE0g=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            MrBeast
+          </a>
+          <a href="https://www.youtube.com/@BeastReacts" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/lgS8eyiztYG9HyA3eQ60pvj4tnY0pPB5xJPKFtskgJGFdmRxFRHCJvTG_WXPyJRTUxRnj5cL5g=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            Beast Reacts
+          </a>
+          <a href="https://www.youtube.com/@MrBeastGaming" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/ytc/AIdro_lMiSL6eHqg2dVxvll6mVMeXo1qVak4TZ4_7mEWdobRRCk=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            MrBeast Gaming
+          </a>
+          <a href="https://www.youtube.com/@MrBeast2" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/J7ANRfVmkOdP44qDLCaPuUtAukopBp37ambAkNnJvNQlzSel6Ryj_ZMDcVeDEDfnZ_O9Zhc5q-s=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            MrBeast 2
+          </a>
+          <a href="https://www.youtube.com/channel/UCX6OQ3DkcsbYNE6H8uQQuVA" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.ggpht.com/cDxtU0ZNtvwI6ujgbXTK9qCDYpd4b1fSbGumP0K4aSin-8oEYWCcuppYckMRl51LZnlpVJJv=s176-c-k-c0x00ffffff-no-rj-mo"
+              alt="YouTube" height="100px" width="100px">
+            MrBeast हिन्दी
+          </a>
+        </h4>
+        <h4>He is known for his giveaways</h4>
+        <div style="color: #260053c6; font-weight: 600;">
+          James Stephen "Jimmy" Donaldson (born May 7, 1998), better known by his online alias MrBeast, is an American
+          YouTuber, internet personality, and businessman. He is known for his fast-paced and high-production videos
+          featuring elaborate challenges and lucrative giveaways.
+        </div>
+
+
+      </div>
+    </div>
+
+    <div id="descBox10" class="description-box description-box10">
+      <div class="close-btn" onclick="closeDescription(10)">&times;</div>
+      <div class="description-content">
+        <h4>
+          Channel : <a href="https://www.youtube.com/@Bixufr" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/f9MW0RZryaqnHi9vcpiX9LQSVXHjfGQwy55tHkWOGN7Nd64XnuvL-dzXRhWx7Q-W3xKAbEBzUGw=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            Bixu
+          </a>
+          <a href="https://www.youtube.com/@imbixu" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/ytc/AIdro_lAjn8hE6Gn9Cr-s7LmuUkp5XJBhqqLtLr8iRMfnUMG8ng=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            I. M. Bixu
+          </a>
+          <a href="https://www.youtube.com/@ItsBixu" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/yICRh1-u7Fmj47hB7PKN2Uij3NZ9VGuWDgoDnY7SjhJFnyACQZtt5heOEFvRug4LdOPzgRkV=s176-c-k-c0x00ffffff-no-rj-mo"
+              alt="YouTube" height="100px" width="100px">
+            ItsBixu
+          </a>
+        </h4>
+        <h4>Content Creater</h4>
+        <div style="color: #260053c6; font-weight: 600;">
+          About. Social media star and rapper known for his YouTube channel featuring Minecraft content. He has
+          attracted an audience of over 3.5 million subscribers. Under his music project Bixu, he has released singles
+          such as "2 Shoes," "POV," and "Wassup Bro."
+        </div>
+      </div>
+    </div>
+
+    <div id="descBox11" class="description-box description-box11">
+      <div class="close-btn" onclick="closeDescription(11)">&times;</div>
+      <div class="description-content">
+        <h4>
+          Channel : <a href="https://www.youtube.com/@YesSmartyPie" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/ytc/AIdro_l4Zf-CYDJFzk_0_46WN79RSGyN3LWi0DeHGj8Uukzsirs=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            YesSmartyPie
+          </a>
+          <a href="https://www.youtube.com/@YesSmartyPieShorts1" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/ytc/AIdro_lx_nlNcceqmyRujki3Am0H70641th0uldyg_G2DXspqA=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            YesSmartyPie Shorts
+          </a>
+          <a href="https://www.youtube.com/@hiteshkhangtavlogs2796/featured" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/04Vp4oJUkHDJ3opF5qho6aVYmELkA-xP_q7t66IpZNCB7hgQ4Edw5QhguAyqXayCxeq56QqKHQ=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            Hitesh Khangta Vlogs
+          </a>
+        </h4>
+        <h4>Popular Indian YouTuber</h4>
+        <div style="color: #260053c6; font-weight: 600;">
+          Book overview. Hitesh Khangta, also known as YesSmartyPie, is a popular Indian YouTuber who has made a name
+          for himself in the gaming community. Born and raised in Shimla, Himachal Pradesh, India, Hitesh grew up in a
+          middle-class family and attended a government school for his schooling.
+        </div>
+      </div>
+    </div>
+
+    <div id="descBox12" class="description-box description-box12">
+      <div class="close-btn" onclick="closeDescription(12)">&times;</div>
+      <div class="description-content">
+        <h4>
+          Channel : <a href="https://www.youtube.com/@MrLapis" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/s0At1WnKkexQyPFG35SFICqrIDMobnkkQ_4IGilQw7VaNV7ieHixVio6QGmrKzoIUfGeiTaeIPE=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            Mr. Lapis
+          </a>
+          <a href="https://www.youtube.com/@lapislive" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/iTH4pZfnjam9Z7PoC6839jZOMQp6oQhSAQRRx8qQn-k4ALnyQDCHCKPC9H-5hpEJWjTHw1bMeA=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            Lapis Live
+          </a>
+        </h4>
+        <h4>Smp Creator</h4>
+        <div style="color: #260053c6; font-weight: 600;">
+          Mr Lapis, is a politician, excavator, miner and farmer currently living in Urcastle. He is a citizen of
+          Montroig, Alfheim, United Plagosi Provinces, Eisenland, Lorent, Pahonja, and a member of the Church of Barry
+          the Blue Sheep.
+        </div>
+      </div>
+    </div>
+
+    <div id="descBox13" class="description-box description-box13">
+      <div class="close-btn" onclick="closeDescription(13)">&times;</div>
+      <div class="description-content">
+        <h4>
+          Channel : <a href="https://www.youtube.com/@PSD1" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/P6l0_UT59uF0T0EmQHbt9W7GPlkNGlp8_4Ealq699olqMDJCrJOcrRqDrpJGvU94gnA174b0Qg=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            PSD1
+          </a>
+          <a href="https://www.youtube.com/@tgpsd1" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/S6sqSLpW1y53RHoq2ejGl9H-ih5G0SSNKbk3vkucmLgff8FSP1SdvisVZQZ1UeCQGt371cERww=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            PSD2
+          </a>
+          <a href="https://www.youtube.com/@PSD1Clips" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/ekawcZf53CSkiTl-OWpDDA-vaU-GDOWxtUGwPeBQaWghBy_c_eSnRO2ylQxHi0YVutMyrmHVcA=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            PSD1 Clips
+          </a>
+          <a href="https://www.youtube.com/@PSD1GamingShorts" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/ZEOqsaJW-U3OuN83ZeaAMgK0VmucCugMTjPngvU44c-zwZVlD0sMbmO0RSgeU7GZQgybvc7h3Q=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            PSD1 Gaming Shorts
+          </a>
+          <a href="https://www.youtube.com/@thisisPSD1" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/ytc/AIdro_lfQ65JOpZdM_HdNnY0_zYk-h7m00aEehgGsFtssXvU_Mo=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            this is PSD1
+          </a>
+        </h4>
+        <h4>Creative Mind</h4>
+        <div style="color: #260053c6; font-weight: 600;">
+          PSD1 plays a significant role in regulating mitochondrial fusion and morphology and is partly exposed to the
+          mitochondrial intermembrane space. Additionally, a fraction of PSD1 localizes to the endoplasmic reticulum
+          (ER) where it is involved in the formation of lipid droplets.
+        </div>
+      </div>
+    </div>
+
+    <div id="descBox14" class="description-box description-box14">
+      <div class="close-btn" onclick="closeDescription(14)">&times;</div>
+      <div class="description-content">
+        <h4>
+          Channel : <a href="https://www.youtube.com/@IAMKOPI" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/xCJJmJtZmg3PtqgDzTowzYH7JK9t8o65TK1XPNNYiy-ooE0zudcbPAbuSTRWB1Yy-2Zz5K0rPJA=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            I AM KOPI
+          </a>
+          <a href="https://www.youtube.com/@KOPIISLIVE" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/7iLOflz87Mzqbd0wtErtG0C_CyPfDvUdyeXuteudFRx_YQ2ivLEFb34nlcr83DkR4BMK-CTScvY=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            KopiOp
+          </a>
+          <a href="https://www.youtube.com/@Kopiiiiiii" target="_blank" class="channel-link">
+            <img class="oppppppp"
+              src="https://yt3.googleusercontent.com/LM72Ii-iQxzKvdlD0tMxKuz1-EAdy_2Po1CLiRe3uUQSlCVHZMrL-Jhohd8QCP9N4LEuk1lvfw=s160-c-k-c0x00ffffff-no-rj"
+              alt="YouTube" height="100px" width="100px">
+            Kopiiiiiii
+          </a>
+        </h4>
+        <h4>100 Days creator</h4>
+        <div style="color: #260053c6; font-weight: 600;">
+          I make shit videos but people still watch them 🥺🫠
+        </div>
+      </div>
+    </div>
+
+    <div id="descBox15" class="description-box description-box15">
+      <div class="close-btn" onclick="closeDescription(15)">&times;</div>
+      <div class="description-content">
+        <h4>
+          Channel : <a href="https://www.youtube.com/@CreatorFour" target="_blank" class="channel-link">
+            <img class="oppppppp" src="https://yt3.googleusercontent.com/placeholder.png" alt="YouTube" height="100px"
+              width="100px">
+            
+          </a>
+        </h4>
+        <h4>Content Innovator</h4>
+        <div style="color: #220347c6; font-weight: 600;">
+          
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -742,7 +1137,7 @@
     function closeDescription(boxNumber) {
       const targetBox = document.getElementById(`descBox${boxNumber}`);
       if (targetBox) {
-        targetBox.classList.remove('active');
+        targetBox.classList.remove('active'); // Hide the selected description box
       }
     }
 
@@ -764,40 +1159,103 @@
       });
     });
 
-    function handleSearch(event) {
-      event.preventDefault(); // Prevent the default form submission
-      const query = document.getElementById('searchInput').value.toLowerCase(); // Get the search input
-      const rightElements = document.querySelectorAll('.right'); // Select all right elements
-      const searchResults = document.getElementById('searchResults'); // Get the search results container
-      searchResults.innerHTML = ''; // Clear previous results
-      let hasResults = false; // Flag to check if there are results
+    let debounceTimer;
 
-      rightElements.forEach(el => {
-        const name = el.querySelector('.pvp-god p').textContent.toLowerCase(); // Get the name text
+    function debounceSearch() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        handleSearch();
+      }, 300);
+    }
+
+    function handleSearch(event) {
+      if (event) event.preventDefault();
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const rightElements = document.querySelectorAll('.right');
+      const searchResults = document.getElementById('searchResults');
+      searchResults.innerHTML = '';
+      let hasResults = false;
+
+      rightElements.forEach((el, index) => {
+        const name = el.querySelector('.pvp-god p').textContent.toLowerCase();
         if (name.includes(query)) {
-          const clone = el.cloneNode(true); // Clone the matching element
-          searchResults.appendChild(clone); // Add it to the search results
-          hasResults = true; // Set flag to true if there's a match
+          el.style.display = 'flex';
+          const resultItem = document.createElement('div');
+          resultItem.className = 'search-result';
+          resultItem.textContent = name;
+          resultItem.tabIndex = 0;
+          resultItem.id = `searchResult-${index}`;
+          resultItem.onclick = () => {
+            openDescription(index + 1);   
+            clearSearch();
+          };
+          resultItem.onkeydown = (e) => {
+            if (e.key === 'Enter') {
+              resultItem.click();
+            }
+          };
+          searchResults.appendChild(resultItem);
+          hasResults = true;
         }
       });
 
-      searchResults.style.display = hasResults ? 'flex' : 'none'; // Show or hide results
+      searchResults.style.display = hasResults ? 'flex' : 'none';
+      searchResults.style.opacity = hasResults ? '1' : '0';
       console.log(`Searching for: ${query}`);
-      return false; // Prevent form submission
+      return false;
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('searchResults').style.display = 'none';
+      const rightElements = document.querySelectorAll('.right');
+      rightElements.forEach(el => {
+        el.style.display = 'flex';
+      });
     }
 
     function filterRights() {
-      const selectedValue = document.getElementById('optionsSelect').value; // Get the selected value
-      const rightElements = document.querySelectorAll('.right'); // Select all right elements
+      const selectedValue = document.getElementById('optionsSelect').value;
+      const rightElements = document.querySelectorAll('.right');
 
       rightElements.forEach(el => {
         if (selectedValue === 'all' || el.getAttribute('data-name') === selectedValue) {
-          el.style.display = 'flex'; // Show matching elements
+          el.style.display = 'flex';
         } else {
-          el.style.display = 'none'; // Hide non-matching elements
+          el.style.display = 'none';
         }
       });
     }
+
+    function populateInitialResults() {
+      const rightElements = document.querySelectorAll('.right');
+      const searchResults = document.getElementById('searchResults');
+      searchResults.innerHTML = '';
+
+      rightElements.forEach((el, index) => {
+        const name = el.querySelector('.pvp-god p').textContent;
+        const resultItem = document.createElement('div');
+        resultItem.className = 'search-result';
+        resultItem.textContent = name;
+        resultItem.tabIndex = 0;
+        resultItem.id = `searchResult-${index}`;
+        resultItem.onclick = () => {
+          openDescription(index + 1);
+          clearSearch();
+        };
+        resultItem.onkeydown = (e) => {
+          if (e.key === 'Enter') {
+            resultItem.click();
+          }
+        };
+        searchResults.appendChild(resultItem);
+      });
+
+      searchResults.style.display = 'flex';
+      searchResults.style.opacity = '1';
+    }
+
+    window.onload = populateInitialResults;
   </script>
 </body>
 
